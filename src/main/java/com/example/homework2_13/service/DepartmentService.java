@@ -8,6 +8,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
+import com.example.homework2_13.exception.EmployeeNotFoundException;
 
 @Service
 public class DepartmentService {
@@ -27,24 +28,7 @@ public class DepartmentService {
         employees[9] = new Employee("Николай", "Викторович", 2, 5500);
 
     }
-
-    public Employee getMaxWage(int department) {
-        return Arrays.stream(employees)
-                .filter(Objects::nonNull)
-                .filter(e -> e.getDepartment() == department )
-                .max(Comparator.comparingInt(Employee::getWage))
-                .orElseThrow();
-    }
-
-
-    public static Employee getMinWage(Integer department) {
-        return Arrays.stream(employees)
-                .filter(Objects::nonNull)
-                .filter(e -> e.getDepartment() == department )
-                .min(Comparator.comparingInt(Employee::getWage))
-                .orElseThrow();
-    }
-    public static List<Employee> getAllInDepart(){
+    public static List<Employee> getAllInDepart(int departmentId){
         return Arrays.stream(employees)
                 .sorted(Comparator.comparingInt(Employee::getDepartment))
                 .collect(Collectors.toList());
@@ -59,5 +43,21 @@ public class DepartmentService {
                 .collect(Collectors.toList());
 
 
+    }
+    public Employee getMaxWage(int department) {
+        return Arrays.stream(employees)
+                .filter(Objects::nonNull)
+                .filter(e -> e.getDepartment() == department )
+                .max(Comparator.comparingInt(Employee::getWage))
+                .orElseThrow(EmployeeNotFoundException::new);
+    }
+
+
+    public static Employee getMinWage(Integer department) {
+        return Arrays.stream(employees)
+                .filter(Objects::nonNull)
+                .filter(e -> e.getDepartment() == department )
+                .min(Comparator.comparingInt(Employee::getWage))
+                .orElseThrow(EmployeeNotFoundException::new);
     }
 }

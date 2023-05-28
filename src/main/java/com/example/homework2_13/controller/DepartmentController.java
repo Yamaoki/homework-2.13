@@ -12,8 +12,8 @@ import java.util.List;
 @RequestMapping("/departments")
 public class DepartmentController {
     @GetMapping("/all")
-    public List<Employee> getAllInDepart(){
-        return DepartmentService.getAllInDepart();
+    public List<Employee> getAllInDepart(int departmentId){
+        return DepartmentService.getAllInDepart(departmentId);
     }
     @GetMapping("/departments/all")
     public List<Employee> getAllByDepart(@RequestParam("departmentId")Integer id) {
